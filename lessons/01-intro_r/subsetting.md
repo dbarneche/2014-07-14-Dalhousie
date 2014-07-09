@@ -18,7 +18,7 @@ As the last section for this topic we'll cover:
 ## Subsetting atomic vectors
 
 ```
-x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+x <- c(5.4, 6.2, 7.1, 4.8, 7.5)  
 ```
 
 **We can subset this in many ways**
@@ -26,21 +26,21 @@ x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
 1. Using positive integers
 
 ```
-x[1]
-x[c(3,1)]
-# We can duplicate indices
-x[c(1, 1)]
-# Real numbers are silently truncated to integers
-x[c(2.1, 2.9)]
+x[1]  
+x[c(3,1)]  
+# We can duplicate indices  
+x[c(1, 1)]  
+# Real numbers are silently truncated to integers  
+x[c(2.1, 2.9)]  
 ```
 
 2. Using negative integers
 
 ```
-# skip the first element
-x[-1]
-# skip the first and the fifth
-x[-c(1,5)]
+# skip the first element  
+x[-1]  
+# skip the first and the fifth  
+x[-c(1,5)]  
 ```
 
 3. Using logical operators
