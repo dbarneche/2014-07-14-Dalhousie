@@ -20,7 +20,7 @@ tutor: Rich
 * character (e.g, "a", "swc")
 
 
-```r
+``` r
 typeof() # what is it?
 class() # what is it? (sorry)
 storage.mode() # what is it? (very sorry)
