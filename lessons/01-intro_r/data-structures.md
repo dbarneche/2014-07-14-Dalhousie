@@ -20,7 +20,7 @@ tutor: Rich
 * character (e.g, "a", "swc")
 
 
-```coffee
+```r
 typeof() # what is it?
 class() # what is it? (sorry)
 storage.mode() # what is it? (very sorry)
@@ -83,7 +83,7 @@ y <- c(TRUE, TRUE, FALSE, FALSE)
 
 Finally you can have character vectors:
 
-```coffee
+```r
 z <- c("Alec", "Dan", "Rob", "Rich")
 ```
 
@@ -485,7 +485,7 @@ How can we do that sort of comparison?
 
 `str` is short for structure. You can use it on any object. Try the following:
 
-```coffee
+```r
 x <- 1:10
 class(x)
 mode(x)

@@ -90,7 +90,7 @@ Saving tables is relatively straight forward using `write.csv`.
 
 Let's say we have a table of values from
 
-```coffee
+```r
 library(plyr)
 source("R/functions.R")
 data <- read.csv("data/gapminder-FiveYearData.csv", stringsAsFactors=FALSE)
@@ -101,7 +101,7 @@ model.data <- ddply(data, .(continent,year), fit.model, x="lifeExp", y="gdpPerca
 
 Now we just want to write this table to file:
 
-```coffee
+```r
 dir.create("output")
 write.csv(model.data, file="output/table1.csv")
 ```
@@ -114,7 +114,7 @@ This is good, but there's a couple of problems:
 
 So here's a better version:
 
-```coffee
+```r
 write.csv(format(model.data, digits=2, trim=TRUE), file="output/table1.csv", row.names=FALSE, quote=FALSE)
 ```
 
@@ -155,7 +155,7 @@ figures).
 
 A better approach [proposed by Rich](http://nicercode.github.io/blog/2013-07-09-figure-functions/) is to use a little function called `to.pdf`:
 
-```coffee
+```r
 to.pdf <- function(expr, filename, ..., verbose=TRUE) {
   if ( verbose )
     cat(sprintf("Creating %s\n", filename))
@@ -168,7 +168,7 @@ to.pdf <- function(expr, filename, ..., verbose=TRUE) {
 Which can be used like so:
 
 
-```coffee
+```r
 to.pdf(myplot(data.1982,"gdpPercap","lifeExp", main=1982), "output/1982.pdf", width=6, height=4)
 ```
 
@@ -190,7 +190,7 @@ A couple of nice things about this approach:
 For talks, I often build up figures piece-by-piece.  This can be done
 by adding an option to your function (for a two-part figure)
 
-```coffee
+```r
 fig.progressive <- function(with.trend=FALSE) {
   set.seed(10)
   x <- runif(100)
@@ -208,14 +208,14 @@ fig.progressive <- function(with.trend=FALSE) {
 
 Now -- if run with as
 
-```coffee
+```r
 fig.progressive(FALSE)
 ```
 
 just the data are plotted, and if run as
 
 
-```coffee
+```r
 fig.progressive(TRUE)
 ```
 
@@ -223,7 +223,7 @@ the trend line and legend are included.  Then with the `to.pdf`
 function, we can do:
 
 
-```coffee
+```r
 to.pdf(fig.progressive(TRUE),  "output/progressive-1.pdf", width=6, height=4)
 to.pdf(fig.progressive(FALSE), "output/progressive-2.pdf", width=6, height=4)
 ```
@@ -232,7 +232,7 @@ which will generate the two figures. The general idea can be expanded to more de
 
 We can use a similar approach to export figures in png format
 
-```coffee
+```r
 
 to.dev <- function(expr, dev, filename, ..., verbose=TRUE) {
   if ( verbose )

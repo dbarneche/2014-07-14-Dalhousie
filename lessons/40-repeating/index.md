@@ -20,7 +20,7 @@ code. Ideally you have a function that performs a single
 operation, and now you want to use it many times to do the same operation on
 lots of different data. The naive way to do that would be something like this:
 
-```coffee
+```r
   res1 <-  f(input1)
   res2 <-  f(input2)
   ...
@@ -80,7 +80,7 @@ across varied datasets and frees you from needing to manage for loop indices.
 
 You can load plyr as
 
-```coffee
+```r
 install.packages("plyr")
 library(plyr)
 ```
@@ -108,7 +108,7 @@ table)
 
 Each of the xxply functions (`daply`, `ddply`, `llply`, `laply`,...) has the same structure and has 4 key features and structure:
 
-```coffee
+```r
 xxply(.data, .variables, .fun)
 ```
 
@@ -121,7 +121,7 @@ xxply(.data, .variables, .fun)
 
 For an example, let's pull up gapminder dataset as before
 
-```coffee
+```r
 data <- read.csv("data/gapminder-FiveYearData.csv", stringsAsFactors=FALSE)
 ```
 
@@ -129,14 +129,14 @@ Now, what is we want to know is the number of countries by continent. So let's m
 
 **Why don't you try - hint, function unique**
 
-```coffee
+```r
 get.n.countries <- function(x) length(unique(x$country))
 get.n.countries(data)
 ```
 
 So first do it hard way:
 
-```coffee
+```r
 data.new <- data[data$continent == "Asia",]
 Asia.n <- get.n.countries(data.new)
 
@@ -157,7 +157,7 @@ n.countries <- c(Africa.n, Asia.n, Americas.n, Europe.n, Oceania.n)
 
 Now here's the equivalent in plyr:
 
-```coffee
+```r
 daply(data, .(continent), get.n.countries)
 ```
 
@@ -174,7 +174,7 @@ Instead of `daply` we could also use `ddply` of `dlply`. Which to use? You need 
 
 It's also possible to define the function in place as an [anonymous function](http://adv-r.had.co.nz/Functional-programming.html):
 
-```coffee
+```r
 ddply(data, .(continent), function(x) length(unique(x$country)) )
 ```
 
@@ -191,24 +191,24 @@ We want to sum total population in a dataframe.
 
 First write the function:
 
-```coffee
+```r
 get.total.pop <- function(x) sum(x$pop)
 ```
 Then apply it using `daply`, `ddply` and `dlaply`:
 
-```coffee
+```r
 ddply(data, .(continent), get.total.pop)
 ```
 Anyone notice a problem here? Yes, the total population of the world is about 10 times to big because it's repeated every 5 years. So we need to add `year` to our list of splitting criteria
 
-```coffee
+```r
 ddply(data, .(continent, year), get.total.pop)
 ```
 
 **You try**
 Next we want the maximum `gdpPercap` on each continent.
 
-```coffee
+```r
 ddply(data, .(continent, year), function(x) max(x$gdpPercap))
 ```
 
@@ -218,19 +218,19 @@ Sometimes we want to return something that doesn't fit into a dataframe or vecto
 
 See if you can write a function that given a dataframe, returns a vector of countries.
 
-```coffee
+```r
 get.countries <- function(x) unique(x$country))
 ```
 
 Now let's apply it to the whole dataset
 
-```coffee
+```r
 get.countries(data)
 ```
 
 And then apply to each continent using `dlpy`
 
-```coffee
+```r
 countries <- dlply(data, .(continent), function(x) unique(x$country))
 ```
 
@@ -242,7 +242,7 @@ In each year, we want to fit a model for each continent on the relationship betw
 
 First, see if you can write a function that given a data frame `x` fits a model to data
 
-```coffee
+```r
 model <- function(x){
   lm(lifeExp ~ log10(gdpPercap), data=x)
 }
@@ -250,31 +250,31 @@ model <- function(x){
 
 Now let's try it on a subset of data
 
-```coffee
+```r
 fit <- model(data[data$year==1982 & data$continent =="Asia" ,])
 ```
 Ok, so let's apply it to all continents in all years:
 
-```coffee
+```r
 fitted.linear.model <- dlply(data, .(continent, year), model)
 ```
 
 The output `fitted.linear.model` is a list of fitted models, with same structure as `fit`. We can use the `coef` function to extract coefficients of a model :
 
-```coffee
+```r
 coef(fitted.linear.model[[1]])
 ldply(fitted.linear.model, coef)
 ```
 
 You probably want the R2 too right?
 
-```coffee
+```r
 ldply(fitted.linear.model, function(x) summary(x)$r.squared)
 ```
 
 We could also alter our model function to return the desired output then call `ddply` to get a summary for models fitted by year and continent:
 
-```coffee
+```r
 model <- function(x){
   fit <- lm(lifeExp ~ log10(gdpPercap), data=x)
   data.frame(n=length(x$lifeExp), r2=summary(fit)$r.squared, a=coef(fit)[[1]], b=coef(fit)[[2]])
@@ -284,7 +284,7 @@ ddply(data, .(continent,year), model)
 
 As a final extension, we could add the variables we want to fit to the function definition, so that we could fit other combinations.
 
-```coffee
+```r
 model <- function(d, x, y) {
   fit <- lm( d[[y]] ~ log10(d[[x]]) )
   data.frame((n=length(d[[y]]), r2=summary(fit)$r.squared,a=coef(fit)[1],b=coef(fit)[2])
@@ -299,7 +299,7 @@ So there you have it - in just 6 lines we can fit about 120 linear models and re
 
 We can also exploit `plyr`'s ability to repeat things when generating plots. In the section on functions we used a function to help us add trend lines by continent:
 
-```coffee
+```r
 add.trend.line <- function(x, y, d, ...) {
   fit <- lm(d[[y]] ~ log10(d[[x]]))
   abline(fit, ...)
@@ -308,7 +308,7 @@ add.trend.line <- function(x, y, d, ...) {
 
 But we still had to run all this code to fit lines to each continent:
 
-```coffee
+```r
 data.1982 <- data[data$year == 1982,]
 
 col.table <- c(Asia="tomato", Europe="chocolate4", Africa="dodgerblue2", Americas="darkgoldenrod1", Oceania="green4")
@@ -329,7 +329,7 @@ That's a lot of typing that is really very similar, and the sort of thing that i
 One way to avoid repetition is to pass the `add.trend.line` function into `d_ply`. The underscore in `d_ply` tells us that we don't want any output, we just want to run the function
 
 
-```coffee
+```r
 plot(lifeExp ~ gdpPercap, data.1982, log="x", cex=cex, col=col, pch=21)
 d_ply(data.1982, .(continent), function(x) add.trend.line("gdpPercap", "lifeExp", x, col=col.table[x$continent]))
 ```
@@ -339,7 +339,7 @@ d_ply(data.1982, .(continent), function(x) add.trend.line("gdpPercap", "lifeExp"
 **Another example**
 Plyr really shines when there are many things to deal with at once.  For example, we plotted relative population growth by country for three countries before:
 
-```coffee
+```r
 pop.by.country.relative <- function(country, data, base.year=1952) {
   dsub <- data[data$country == country, c("year", "pop")]
   dsub$pop.rel <- dsub$pop / dsub$pop[dsub$year == base.year]
@@ -353,14 +353,14 @@ lines(pop.rel ~ year, pop.by.country.relative("China", dat), type="o", col="red"
 
 But if we wanted to do this for, say, all the countries in Asia that'd be a lot of copy and paste.  With plyr this is easy. Let's make a function that plot's a growth function for all years within a dataset:
 
-```coffee
+```r
 add.growth.line <- function(x, base.year,...){
 	lines(x$year,x$pop / x$pop[x$year == base.year], type="o",...)
 }
 ```
 We can then feed this into `d_ply` to generate  a plot for all countries
 
-```coffee
+```r
 plot(NA, type="n", xlim=range(data$year), ylim=c(1, 6), xlab="Year", ylab="Relative population size")
 d_ply( data[data$continent =="Asia" ,], .(country), function(x) add.growth.line(x, 1952))
 ```
@@ -368,7 +368,7 @@ d_ply( data[data$continent =="Asia" ,], .(country), function(x) add.growth.line(
 
 And we could use the same approach to make plots for the entire world, colouring by continent
 
-```coffee
+```r
 plot(NA, type="n", xlim=range(data$year), ylim=c(1, 6), xlab="Year", ylab="Relative population size")
 d_ply(data, .(country), function(x) add.growth.line(x, 1952, col=col.table[x$continent]))
 ```
@@ -388,19 +388,19 @@ Like `ddply`, `summarise` can be used to create a new data frame from another da
 
 For summaries of the whole dataset you can call summarise directly:
 
-```coffee
+```r
 summarise(data, pop.mean=sum(pop), pop.var=var(pop), pop.max=max(pop))
 ```
 
 But if you want to split by groups, need to combine with `ddply`. All the functions you want to call are simply listed at the end as extra arguments:
 
-```coffee
+```r
 ddply(data, .(continent, year), summarise, pop.mean=sum(pop), pop.var=var(pop), pop.max=max(pop))
 ```
 
 However, notice that the format of the functions is slightly different to if we were calling each directly with ddply:
 
-```coffee
+```r
 ddply(data, .(continent, year),  function(x) sum(x$pop))
 ddply(data, .(continent, year),  function(x) var(x$pop))
 ddply(data, .(continent, year),  function(x) max(x$pop))
@@ -425,7 +425,7 @@ The main problems with this code are that
 
 All it's doing is making a plot! Compare that to something like this
 
-```coffee
+```r
 for (i in unique(Raw$SPP))
   makePlot(i, data = Raw)
 ```
@@ -446,7 +446,7 @@ One place where `for` loops shine is in writing simulations; if one iteration de
 In an (unbiased) random walk, each time step we move left or right with probability 0.5.  R has lots of random number generation functions.  The `runif` function generates random numbers uniformly on `[0,1]` so we can draw random steps directions like this:
 
 
-```coffee
+```r
 for (i in 1:10)
   print(if (runif(1) < 0.5) 1 else -1)
 ```
@@ -468,7 +468,7 @@ for (i in 1:10)
 Or we could take the `sign` of a standard normal:
 
 
-```coffee
+```r
 for (i in 1:10)
   print(sign(rnorm(1)))
 ```
@@ -490,7 +490,7 @@ for (i in 1:10)
 The implementation does not matter.
 
 
-```coffee
+```r
 random.step <- function() {
   sign(rnorm(1))
 }
@@ -500,7 +500,7 @@ random.step <- function() {
 We can then use this to step 20 steps:
 
 
-```coffee
+```r
 x <- 0
 for (i in 1:20)
   x <- x + random.step()
@@ -517,7 +517,7 @@ which will end up somewhere between -20 and 20, but with a mean of 0.
 We want to track the entire trajectory:
 
 
-```coffee
+```r
 nsteps <- 200
 x <- numeric(nsteps + 1) # space to store things in
 x[1] <- 0 # start at 0
@@ -532,7 +532,7 @@ plot(x, type="l", xlab="Step number", ylab="Position")
 
 We might want to run that lots of times, so put it into a function:
 
-```coffee
+```r
 random.walk <- function(nsteps, x0=0) {
   x <- numeric(nsteps + 1)
   x[1] <- x0
@@ -547,7 +547,7 @@ random.walk <- function(nsteps, x0=0) {
 which is now much easier to use:
 
 
-```coffee
+```r
 plot(random.walk(200), type="l", xlab="Step number", ylab="Position")
 ```
 
@@ -555,7 +555,7 @@ plot(random.walk(200), type="l", xlab="Step number", ylab="Position")
 
 
 
-```coffee
+```r
 nsteps <- 200
 nrep <- 40
 cols <- rainbow(nrep)

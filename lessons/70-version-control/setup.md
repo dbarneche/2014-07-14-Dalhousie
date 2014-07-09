@@ -7,7 +7,7 @@ tutor: Rich FitzJohn
 
 ## Basic git configuration
 
-```coffee
+```r
 git config --global user.name "Rich FitzJohn"
 git config --global user.email "rich.fitzjohn@gmail.com"
 git config --global color.ui "auto"
@@ -16,7 +16,7 @@ git config --global color.ui "auto"
 
 Please replace my name/email with yours before pasting it into a terminal. If it returns no errors, then verify that these settings were saved into your configuration file (`.gitconfig`) by running:
 
-```coffee
+```r
 git config --list
 git config user.name
 ```
@@ -40,7 +40,7 @@ git config --global core.autocrlf "input"
 The simple editor `nano` is likely to be the simplest thing to use (at least on a Mac).
 
 
-```coffee
+```r
 git config --global core.editor "nano --tempfile" 
 ```
 

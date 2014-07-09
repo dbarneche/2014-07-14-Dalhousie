@@ -27,7 +27,7 @@ Another recent package that's really useful in this context is called `Rdocument
 
 to install:
 
-```coffee
+```r
 library("devtools"); 
 install_github("Rdocumentation","jonathancornelissen");
 library("Rdocumentation")
@@ -45,7 +45,7 @@ for example, the function `dput()` can help recreate R objects by simply pasting
 
 e.g.
 
-```coffee
+```r
 dput(head(iris))
 
 structure(list(Sepal.Length = c(5.1, 4.9, 4.7, 4.6, 5, 5.4), 
@@ -62,7 +62,7 @@ structure(list(Sepal.Length = c(5.1, 4.9, 4.7, 4.6, 5, 5.4),
 
 The `knitr` function `stitch()` automatically includes this information. Try it on any example R script.
 
-```coffee
+```r
 stitch("my_script.R")
 ```
 

@@ -15,7 +15,7 @@ Things to cue up:
 
 Open Rstudio project 90-reproducible
 
-```coffee
+```r
 # Saving tables to file
 dir.create("output")
 write.csv(model.data, file="output/table1.csv")
@@ -26,7 +26,7 @@ write.csv(format(model.data, digits=2, trim=TRUE), file="output/table1.csv", row
 
 #One way of saving a plot to file
 
-```coffee
+```r
 pdf("output/my-plot.pdf", width=6, height=4)
 myplot(data.1982,"gdpPercap","lifeExp", main =1982)
 dev.off()
@@ -34,12 +34,12 @@ dev.off()
 
 # a better way of saving to pdf
 
-```coffee
+```r
 to.pdf(myplot(data.1982,"gdpPercap","lifeExp", main=1982), "output/1982.pdf", width=6, height=4)
 ```
 
 # similar approach to save png
 
-```coffee
+```r
 to.dev(myplot(data.1982, "gdpPercap","lifeExp", main=1982), png, "output/1982.png", width=600, height=400)
 ```

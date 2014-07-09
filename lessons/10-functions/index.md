@@ -25,7 +25,7 @@ functions. But what about writing your own?
 
 Writing functions is simple. Paste the following code into your console
 
-```coffee
+```r
 double <- function(number) {
   2 * number
 }

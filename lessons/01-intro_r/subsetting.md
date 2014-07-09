@@ -101,7 +101,7 @@ x[1:5]
 
 To extract individual elements inside a list, use the `[[` operator
 
-```coffee
+```r
 # to get element 5
 
 x[[5]]
@@ -147,7 +147,7 @@ a[1,]
 
 # Subsetting data frames
 
-```coffee
+```r
 df <- data.frame(x = 1:3, y = 3:1, z = letters[1:3])
 
 df[df$x == 2, ]

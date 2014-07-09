@@ -61,13 +61,13 @@ Getting more serious about testing has totally changed my approach towards softw
 
 We'll use the `testthat` package to make testing easy and intuitive.  This is a brilliant package that scales up from one-off tests to detailed suites that are well suited to large packages.
 
-```coffee
+```r
 library(testthat)
 ```
 
 In the previous section we created a function that linearly rescales values.
 
-```coffee
+```r
 rescale <- function(x, r.out) {
   p <- (x - min(x)) / (max(x) - min(x))
   r.out[[1]] + p * (r.out[[2]] - r.out[[1]])
@@ -94,16 +94,16 @@ Corner cases:
 
 We already ran through some of these when developing the function the first time.
 
-```coffee
+```r
 x <- rnorm(20)
 ```
 
-```coffee
+```r
 r.out <- c(0.1, 1.4)
 range(rescale(x, r.out)) == r.out
 ```
 
-```coffee
+```r
 expect_that(range(rescale(x, r.out)), equals(r.out))
 ```
 
@@ -209,7 +209,7 @@ Storing things in different directories ends up being the long-term bet, but you
 
 Start with the `rescale` function from before:
 
-```coffee
+```r
 rescale <- function(x, r.out) {
   p <- (x - min(x)) / (max(x) - min(x))
   r.out[[1]] + p * (r.out[[2]] - r.out[[1]])
