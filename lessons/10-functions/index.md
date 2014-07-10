@@ -2,7 +2,7 @@
 layout: lesson
 root: ../..
 title: Writing functions in R
-tutor: Rich FitzJohn
+tutor: Diego
 ---
 
 <!-- # Goals
@@ -11,7 +11,7 @@ tutor: Rich FitzJohn
 	 semantics) and scoping rules.
 2. Start to writing their own functions
  -->
-**Materials**: Please [download the lesson materials for this bootcamp](https://github.com/nicercode/2014-02-18-UTS/raw/gh-pages/data/lessons.zip), unzip, go to the directory `functions`, and open (double click) on the file `functions.Rproj` to open Rstudio.
+**Materials**: Please [download the lesson materials for this bootcamp](https://github.com/dbarneche/2014-07-14-Dalhousie/raw/gh-pages/data/lessons.zip), unzip, go to the directory `functions`, and open (double click) on the file `functions.Rproj` to open Rstudio.
 
 
 Abstracting your code into many small functions is key for writing
@@ -31,7 +31,7 @@ double <- function(number) {
 }
 ```
 
-This function takes `number` as an argument and returns twice `number` as a value (i.e., it doubles a number.
+This function takes `number` as an argument and returns twice `number` as a value (i.e., it doubles a number).
 
 The bit in the brackets is the "body" of the function; it is evaluted every time that the function is called.  The body of the function can contain any valid R expression.
 
@@ -76,7 +76,7 @@ As a simple starting point, let's re-implement some functions that are already i
 We're going to use some data from gapminder - this is available in the lesson material (see top of page), alternatively you can download from [here](https://github.com/nicercode/gapminder/archive/d4f943d8ca15c2f6572ec52c74987e0f1971e64c.zip) and unzip into the directory that you are using.
 
 ```
-data <- read.csv(gapminder-FiveYearData.csv", stringsAsFactors=FALSE)
+data <- read.csv("gapminder-FiveYearData.csv", stringsAsFactors=FALSE)
 ```
 
 This is pretty big, so grab just the data from 1982:
@@ -254,8 +254,6 @@ Let's say we want to add a linear trendline to the plot.
 
 *(This example is a bit tricky; R's formula (`y ~ x`) does lots of magic work in finding it's targets, and wrapping this up with functions can be a bit hard.)*
 
-*(The other bit of magic here is the ellipsis argument.  In the practical, work up to this by passing in nothing and then look at how ellipsis is useful)*
-
 ```r
 add.trend.line <- function(x, y, d, ...) {
   fit <- lm(d[[y]] ~ log10(d[[x]]))
@@ -372,9 +370,9 @@ pop.by.country.relative <- function(country, data, base.year=1952) {
 Can use this to plot relative growth trajectories over time:
 
 ```r
-plot(pop.rel ~ year, pop.by.country.relative("India", dat), type="o")
-lines(pop.rel ~ year, pop.by.country.relative("Australia", dat), type="o", col="green4")
-lines(pop.rel ~ year, pop.by.country.relative("China", dat), type="o", col="red")
+plot(pop.rel ~ year, pop.by.country.relative("India", data), type="o")
+lines(pop.rel ~ year, pop.by.country.relative("Australia", data), type="o", col="green4")
+lines(pop.rel ~ year, pop.by.country.relative("China", data), type="o", col="red")
 ```
 
 ![plot of chunk growth1](figure/growth1.png)

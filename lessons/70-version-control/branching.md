@@ -2,7 +2,7 @@
 layout: lesson
 root: ../..
 title: Branching
-tutor: Rich FitzJohn
+tutor: Gavin
 ---
 
 **Cue:**
@@ -87,7 +87,7 @@ branches in someone else's repository essentially like branches in
 your own, and lots of cool ways of working with branches become
 possible.
 
-They also are important for single-user workflows.  I use them for
+They also are important for single-user workflows. I use them for
 testing ideas that I'm not sure about:
 
 * Create a branch

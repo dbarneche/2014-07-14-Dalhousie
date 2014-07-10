@@ -2,7 +2,7 @@
 layout: lesson
 root: ../..
 title: Repeating things - the key to writing nice code in R
-tutor: Daniel Falster
+tutor: Gavin
 ---
 
 <!-- Goals
@@ -12,7 +12,7 @@ tutor: Daniel Falster
 - split apply combine strategy for data analysis
  -->
 
-**Materials**: If you have not already done so, please [download the lesson materials for this bootcamp](https://github.com/nicercode/2014-02-18-UTS/raw/gh-pages/data/lessons.zip), unzip, then go to the folder `repeating`, and open (double click) on the file `repeating.Rproj` to open Rstudio.
+**Materials**: If you have not already done so, please [download the lesson materials for this bootcamp](https://github.com/dbarneche/2014-07-14-Dalhousie/raw/gh-pages/data/lessons.zip), unzip, then go to the folder `repeating`, and open (double click) on the file `repeating.Rproj` to open Rstudio.
 
 
 Previously we looked at how you can use functions to simplify your
@@ -199,7 +199,7 @@ Then apply it using `daply`, `ddply` and `dlaply`:
 ```r
 ddply(data, .(continent), get.total.pop)
 ```
-Anyone notice a problem here? Yes, the total population of the world is about 10 times to big because it's repeated every 5 years. So we need to add `year` to our list of splitting criteria
+Anyone notice a problem here? Yes, the total population of the world is about 10 times too big because it's repeated every 5 years. So we need to add `year` to our list of splitting criteria
 
 ```r
 ddply(data, .(continent, year), get.total.pop)
@@ -219,7 +219,7 @@ Sometimes we want to return something that doesn't fit into a dataframe or vecto
 See if you can write a function that given a dataframe, returns a vector of countries.
 
 ```r
-get.countries <- function(x) unique(x$country))
+get.countries <- function(x) unique(x$country)
 ```
 
 Now let's apply it to the whole dataset
@@ -287,7 +287,7 @@ As a final extension, we could add the variables we want to fit to the function 
 ```r
 model <- function(d, x, y) {
   fit <- lm( d[[y]] ~ log10(d[[x]]) )
-  data.frame((n=length(d[[y]]), r2=summary(fit)$r.squared,a=coef(fit)[1],b=coef(fit)[2])
+  data.frame(n=length(d[[y]]), r2=summary(fit)$r.squared,a=coef(fit)[1],b=coef(fit)[2])
 }
 ddply(data, .(continent,year), model, y="lifeExp", x="gdpPercap")
 ddply(data, .(continent,year), model, y="lifeExp", x="pop")
@@ -322,7 +322,7 @@ add.trend.line("gdpPercap", "lifeExp", data.1982[data.1982$continent == "America
 add.trend.line("gdpPercap", "lifeExp", data.1982[data.1982$continent == "Oceania",], col=col.table["Oceania"])
 ```
 
-That's a lot of typing that is really very similar, and the sort of thing that is (a) boring to type, (b) prone to errorsm, and (c) hard to change (e.g. if we wanted to run it on a different data set, or change which continents we ran it over etc).
+That's a lot of typing that is really very similar, and the sort of thing that is (a) boring to type, (b) prone to errors, and (c) hard to change (e.g. if we wanted to run it on a different data set, or change which continents we ran it over etc).
 
 ![plot of chunk repeating_manual](figure/repeating_manual.png)
 
@@ -330,6 +330,20 @@ One way to avoid repetition is to pass the `add.trend.line` function into `d_ply
 
 
 ```r
+# recall functions and objects created in the functions lesson
+colour.by.category <- function(x, table) {
+  unname(table[x])
+}
+
+rescale <- function(x, r.out) {
+  p <- (x - min(x)) / (max(x) - min(x))
+  r.out[[1]] + p * (r.out[[2]] - r.out[[1]])
+}
+
+col <- colour.by.category(data.1982$continent, col.table)
+cex <- rescale(sqrt(data.1982$pop), c(0.2, 10))
+
+# now use function add.trend.line
 plot(lifeExp ~ gdpPercap, data.1982, log="x", cex=cex, col=col, pch=21)
 d_ply(data.1982, .(continent), function(x) add.trend.line("gdpPercap", "lifeExp", x, col=col.table[x$continent]))
 ```
@@ -346,9 +360,9 @@ pop.by.country.relative <- function(country, data, base.year=1952) {
   dsub
 }
 
-plot(pop.rel ~ year, pop.by.country.relative("India", dat), type="o")
-lines(pop.rel ~ year, pop.by.country.relative("Australia", dat), type="o", col="green4")
-lines(pop.rel ~ year, pop.by.country.relative("China", dat), type="o", col="red")
+plot(pop.rel ~ year, pop.by.country.relative("India", data), type="o")
+lines(pop.rel ~ year, pop.by.country.relative("Australia", data), type="o", col="green4")
+lines(pop.rel ~ year, pop.by.country.relative("China", data), type="o", col="red")
 ```
 
 But if we wanted to do this for, say, all the countries in Asia that'd be a lot of copy and paste.  With plyr this is easy. Let's make a function that plot's a growth function for all years within a dataset:
@@ -410,7 +424,7 @@ ddply(data, .(continent, year),  function(x) max(x$pop))
 
 When you mention looping, many people immediately reach for `for`. Perhaps
 that's because they are already familiar with these other languages,
-like basic, python, perl, C, C++ or matlab. While `for` is definitely the most
+like basic, python, perl, C, C++ or MATLAB. While `for` is definitely the most
 flexible of the looping options, we suggest you avoid it wherever you can, for
 the following two reasons:
 
@@ -439,7 +453,7 @@ function has many benefits:
 
 But as you saw above, plotting can also be handled with the `d_ply` functions so we'd suggest you use that, as it enforces good habits.
 
-In fact, we'd encourage you to avoid `for` unless the order of iteration is important. A key feature of all the examples in the `plyr` section is that **order of iteration is not important**.  This is crucial. If each each iteration is independent, then you can cycle through them in whatever order you like.
+In fact, we'd encourage you to avoid `for` unless the order of iteration is important. A key feature of all the examples in the `plyr` section is that **order of iteration is not important**.  This is crucial. If each iteration is independent, then you can cycle through them in whatever order you like.
 
 One place where `for` loops shine is in writing simulations; if one iteration depends on the value of a previous iteration, then a `for` loop is probably the best way of repeating things.
 
@@ -447,6 +461,7 @@ In an (unbiased) random walk, each time step we move left or right with probabil
 
 
 ```r
+set.seed(1)
 for (i in 1:10)
   print(if (runif(1) < 0.5) 1 else -1)
 ```
@@ -457,11 +472,11 @@ for (i in 1:10)
 ## [1] -1
 ## [1] -1
 ## [1] 1
+## [1] -1
+## [1] -1
+## [1] -1
+## [1] -1
 ## [1] 1
-## [1] 1
-## [1] -1
-## [1] -1
-## [1] -1
 ```
 
 
@@ -469,18 +484,19 @@ Or we could take the `sign` of a standard normal:
 
 
 ```r
+set.seed(1)
 for (i in 1:10)
   print(sign(rnorm(1)))
 ```
 
 ```
+## [1] -1
+## [1] 1
+## [1] -1
+## [1] 1
 ## [1] 1
 ## [1] -1
 ## [1] 1
-## [1] 1
-## [1] -1
-## [1] -1
-## [1] -1
 ## [1] 1
 ## [1] 1
 ## [1] -1
@@ -501,6 +517,7 @@ We can then use this to step 20 steps:
 
 
 ```r
+set.seed(1)
 x <- 0
 for (i in 1:20)
   x <- x + random.step()
@@ -508,7 +525,7 @@ x
 ```
 
 ```
-## [1] 0
+## [1] 4
 ```
 
 
@@ -518,6 +535,7 @@ We want to track the entire trajectory:
 
 
 ```r
+set.seed(1)
 nsteps <- 200
 x <- numeric(nsteps + 1) # space to store things in
 x[1] <- 0 # start at 0
@@ -548,7 +566,8 @@ which is now much easier to use:
 
 
 ```r
-plot(random.walk(200), type="l", xlab="Step number", ylab="Position")
+set.seed(1)
+plot(random.walk(400), type="l", xlab="Step number", ylab="Position")
 ```
 
 ![plot of chunk random_walk2](figure/random_walk2.png)
@@ -556,6 +575,7 @@ plot(random.walk(200), type="l", xlab="Step number", ylab="Position")
 
 
 ```r
+set.seed(1)
 nsteps <- 200
 nrep <- 40
 cols <- rainbow(nrep)
@@ -568,4 +588,4 @@ for (i in 1:nrep)
 
 ## Acknowledgements
 
-This material was developed  by Daniel Falster and Rich FitzJohn based on material prepared by Karthik Ram and Hadley Wickam.
+This material was developed by Daniel Falster and Rich FitzJohn and modified by Diego Barneche. Based on material prepared by Karthik Ram and Hadley Wickam.

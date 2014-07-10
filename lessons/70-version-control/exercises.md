@@ -2,12 +2,12 @@
 layout: lesson
 root: ../..
 title: Exercises
-tutor: Rich FitzJohn
+tutor: Gavin
 ---
 
 # Exercises for the git bit
 
-The git section is odd because there is lots of talking; this was the same when Greg ran SWC at MQ, too.  I don't think there is any silver bullet.  There are some exercises that we can run through within basics and branching, but I'd like to get them here in a more concise form so that it's easier to know where we are going.
+The git section is odd because there is lots of talking; this was the same when Greg ran SWC at MQ, too. I don't think there is any silver bullet. There are some exercises that we can run through within basics and branching, but I'd like to get them here in a more concise form so that it's easier to know where we are going.
 
 ## Creating a repository
 

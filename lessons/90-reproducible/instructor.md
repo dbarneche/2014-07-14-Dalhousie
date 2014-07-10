@@ -2,7 +2,7 @@
 layout: lesson
 root: ../..
 title: Reproducible research - instructor notes
-tutor: Daniel Falster
+tutor: Diego
 ---
 
 Things to cue up:

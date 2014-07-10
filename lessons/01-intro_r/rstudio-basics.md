@@ -2,7 +2,7 @@
 layout: lesson
 root: ../..
 title: Getting started with RStudio
-tutor: Rich
+tutor: Diego
 ---
 
 *Note: Most of this intro to RStudio was written by Jenny Bryan. I will not go through this material separately but please feel free to review in your own time.*

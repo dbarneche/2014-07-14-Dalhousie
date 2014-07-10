@@ -2,14 +2,14 @@
 layout: lesson
 root: ../..
 title: Setting up git
-tutor: Rich FitzJohn
+tutor: Gavin
 ---
 
 ## Basic git configuration
 
 ```r
-git config --global user.name "Rich FitzJohn"
-git config --global user.email "rich.fitzjohn@gmail.com"
+git config --global user.name "Apprentice carpenter"
+git config --global user.email "gitrocks@gmail.com"
 git config --global color.ui "auto"
 ```
 

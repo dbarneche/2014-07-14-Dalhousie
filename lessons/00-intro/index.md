@@ -2,7 +2,7 @@
 layout: lesson
 root: ../..
 title: Welcome to software carpentry
-tutor: Rich
+tutor: Diego
 ---
 
 ## Why are we here?
@@ -10,10 +10,10 @@ tutor: Rich
 [About Software carpentry](http://www.software-carpentry.org/)
 
 - **Mission**: [Software Carpentry] helps researchers be more productive by teaching them basic computing skills. We run boot camps at dozens of sites around the world, and also provide open access material online for self-paced instruction. The benefits are more reliable results and higher productivity: a day a week is common, and a ten-fold improvement isn't rare.
-- **Who we are:** Software Carpentry is a volunteer organization supported by the Alfred P. Sloan Foundation and the Mozilla Foundation.
+- **Who we are:** Software Carpentry is a volunteer organization previously supported by the Alfred P. Sloan Foundation and the Mozilla Foundation, currently part of the [Mozilla Science Lab](http://mozillascience.org/).
 - **Boot camps:** Our boot camps cover the core skills every scientist needs to get more done in less time: program construction, version control, testing, the command line, and data management. Short lessons alternate with hands-on practical sessions for two full days
 
-This boot camp was organised by Andrew Letten and sponsored by Richard Kingsford, thanks Andrew and Richard!
+This boot camp was organised by Myriam Lacharite, Mauricio Cantor and Francisco Avendano and sponsored by the Marine Environmental Observation Prediction and Response Network (MEOPAR), the Faculty of Science, the Department of Oceanography, the Department of Biology, Dalhousie Oceanography Student Association and Biology Organization of Graduate Students, thanks everyone!
 
 ## The problem
 
@@ -88,7 +88,7 @@ Learning to code and need inspiration ?
 Why good code matters
 
 - [Why I want to write nice R code](http://nicercode.github.io/blog/2013-04-05-why-nice-code/)
-- [Problems with scientific computingg](http://www.nature.com/news/2010/101013/full/467775a.html)
+- [Problems with scientific computing](http://www.nature.com/news/2010/101013/full/467775a.html)
 - [Science has a credibility problem](http://www.economist.com/news/leaders/21588069-scientific-research-has-changed-world-now-it-needs-change-itself-how-science-goes-wrong)
 - Things can go badly go wrong
 	- [Patriot missile failure](http://www.ima.umn.edu/~arnold/disasters/patriot.html)

@@ -2,7 +2,7 @@
 layout: lesson
 root: ../..
 title: git instructor notes
-tutor: Diego Barneche
+tutor: Ross
 ---
 
 # Things to cue up:
@@ -32,6 +32,6 @@ BONUS: List all of the files in  in shell material folder that contain the numbe
 Go to your shell material directory;  
 Move all files in directory `data` to a subdirectory `data/exercise`;  
 Back in your shell material directory create the following folders: `docs`, `output/data`, `output/figures` and `R`;  
-From within your shell material directory, move the respective file types into their matching directory type following the ([project setup](http://nicercode.github.io/2014-02-13-UNSW/lessons/30-projects/)) lesson;  
+From within your shell material directory, move the respective file types into their matching directory type following the ([project setup](http://dbarneche.github.io/2014-07-14-Dalhousie/lessons/30-projects/)) lesson;  
 
 Hints: You can combine several steps into one. Tab completion and wildcards are your friends.  

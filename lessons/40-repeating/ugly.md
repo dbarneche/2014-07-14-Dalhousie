@@ -1,8 +1,8 @@
 ---
 layout: lesson
 root: ../..
-title: Some really horrible code (of mine, when I was young and naive)
-tutor: Daniel Falster
+title: Some really horrible code (of mine, when I was young and naive) - courtesy of Dr. Daniel Falster
+tutor: Gavin
 ---
 
 ```coffee

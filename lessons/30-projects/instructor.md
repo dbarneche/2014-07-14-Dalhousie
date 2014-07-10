@@ -1,8 +1,8 @@
 ---
 layout: lesson
 root: ../..
-title: git instructor notes
-tutor: Diego Barneche
+title: project instructor notes
+tutor: Diego
 ---
 
 # Things to cue up:

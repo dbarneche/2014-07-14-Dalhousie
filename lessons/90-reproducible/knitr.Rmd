@@ -6,7 +6,7 @@ opts_chunk$set(tidy=FALSE)
 
 ## Vector types
 
-Rich just told us that in R we have 5 different types of vector.  
+Diego just told us that in R we have 5 different types of vector.  
 ```{r}
 x <- TRUE       # x becomes TRUE
 x <- 1          # x now has a value of 1 (overwritten the line above)
@@ -31,7 +31,7 @@ typeof(x)
 class(x)
 ```
 
-# Examples from lesson number 2 - Writing functions - presented by Rich FitzJohn  
+# Examples from lesson number 2 - Writing functions - presented by Diego  
 
 ## Playing with the basics  
 When you write your function, you define it based on *arguments*  

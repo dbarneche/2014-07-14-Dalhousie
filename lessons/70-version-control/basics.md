@@ -2,7 +2,7 @@
 layout: lesson
 root: ../..
 title: Git basics
-tutor: Rich FitzJohn
+tutor: Gavin
 ---
 
 Essentially, all version control does is store snapshots of your work
@@ -30,7 +30,7 @@ First, we're going to need some terminology:
   contained within a `.git` directory at the root directory of your
   project.
 
-One of the distinguishing and great features about git is that the repo contains the entire history of the project, i.e. if your project moves, the history travels with it. So if you clone your work to a new computer, or a collaborator gets involved (more on how to do that later), they have the full project history available.  This is called [distributed version control](en.wikipedia.org/wiki/ Distributed_revision_control).
+One of the distinguishing and great features about git is that the repo contains the entire history of the project, i.e. if your project moves, the history travels with it. So if you clone your work to a new computer, or a collaborator gets involved (more on how to do that later), they have the full project history available.  This is called [distributed version control](en.wikipedia.org/wiki/Distributed_revision_control).
 
 ## What goes in my repository? 
 

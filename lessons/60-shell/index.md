@@ -4,9 +4,9 @@ root: ../..
 github_username: nicercode
 bootcamp_slug: gapminder
 Title: The Unix Shell
-tutor: Diego Barneche
+tutor: Ross
 ---
-**Materials**: If you have not already done so, please [download the lesson materials for this bootcamp](https://github.com/nicercode/2014-02-18-UTS/raw/gh-pages/data/lessons.zip), unzip it, then go to the directory `shell`, and open (double click) on the file `shell.Rproj` to open Rstudio.
+**Materials**: If you have not already done so, please [download the lesson materials for this bootcamp](https://github.com/dbarneche/2014-07-14-Dalhousie/raw/gh-pages/data/lessons.zip), unzip it, then go to the directory `shell`, and open (double click) on the file `shell.Rproj` to open Rstudio.
 
 
 ## Initial setup (for Windows users only):
@@ -586,7 +586,7 @@ which git
 Go to your shell material directory;
 Move all files in directory `data` to a subdirectory `data/exercise`;
 Back in your shell material directory create the following folders: `docs`, `output/data`, `output/figures` and `R`;
-From within your shell material directory, move the respective file types into their matching directory type following the ([project setup](http://nicercode.github.io/2014-02-13-UNSW/lessons/30-projects/)) lesson;
+From within your shell material directory, move the respective file types into their matching directory type following the ([project setup](http://dbarneche.github.io/2014-07-14-Dalhousie/lessons/30-projects/)) lesson;
 
 Hints: You can combine several steps into one. Tab completion and wildcards are your friends.
 

@@ -5,7 +5,7 @@
 
 ## Vector types
 
-Rich just told us that in R we have 5 different types of vector.  
+Diego just told us that in R we have 5 different types of vector.  
 
 ```r
 x <- TRUE       # x becomes TRUE
@@ -76,7 +76,7 @@ class(x)
 ```
 
 
-# Examples from lesson number 2 - Writing functions - presented by Rich FitzJohn  
+# Examples from lesson number 2 - Writing functions - presented by Diego  
 
 ## Playing with the basics  
 When you write your function, you define it based on *arguments*  
@@ -169,4 +169,4 @@ for (year in unique(data$year))
 ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-91.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-92.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-93.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-94.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-95.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-96.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-97.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-98.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-99.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-910.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-911.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-912.png) 
 
 
-[id]: https://raw.github.com/nicercode/gapminder/master/gapminder-FiveYearData.csv
+[id]: https://raw.githubusercontent.com/dbarneche/2014-07-14-Dalhousie/gh-pages/data/lessons/10-functions/gapminder-FiveYearData.csv

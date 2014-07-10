@@ -2,10 +2,10 @@
 layout: lesson
 root: ../..
 title: Reproducible research
-tutor: Daniel Falster, with Diego Barneche
+tutor: Diego
 ---
 
-**Materials**: If you have not already done so, please [download the lesson materials for this bootcamp](https://github.com/nicercode/2014-02-18-UTS/raw/gh-pages/data/lessons.zip), unzip, then go to the directory `reproducible`, and open (double click) on the file `reproducible.Rproj` to open Rstudio.
+**Materials**: If you have not already done so, please [download the lesson materials for this bootcamp](https://github.com/dbarneche/2014-07-14-Dalhousie/raw/gh-pages/data/lessons.zip), unzip, then go to the directory `reproducible`, and open (double click) on the file `reproducible.Rproj` to open Rstudio.
 
 ## Introduction
 
@@ -296,10 +296,10 @@ of her papers](http://www.stanford.edu/~vcs/Papers.html) for reference.
 
 ## Acknowledgements
 
-This material presented here was adapted from swc by Daniel Falster, incorporating new material from Rich FitzJohn and also views presented by a wide range of people across the twittersphere and [within the swc community](https://github.com/swcarpentry/bc/issues/199)
+This material presented here was adapted from SWC by Daniel Falster, incorporating new material from Rich FitzJohn and also views presented by a wide range of people across the twittersphere and [within the swc community](https://github.com/swcarpentry/bc/issues/199)
 
 [id1]: http://en.wikipedia.org/wiki/Markdown "Markdown in Wikipedia"
-[id2]: http://nicercode.github.io/2014-02-13-UNSW/lessons/90-reproducible/knitr "UNSW/UTS example of html knitr report"
+[id2]: http://dbarneche.github.io/2014-07-14-Dalhousie/lessons/90-reproducible/knitr "Dalhousie example of html knitr report"
 [id3]: http://rpubs.com/recology_/rresources "Scott Chamberlain online presentation"
 [id4]: http://www.rstudio.com/ide/docs/authoring/using_markdown "RStudio material for R Markdown"
-[id5]: https://raw.github.com/nicercode/2014-02-18-UTS/gh-pages/lessons/90-reproducible.zip "UNSW/UTS example of original Rmd file used to generate knitr reports"
+[id5]: https://raw.github.com/dbarneche/2014-07-14-Dalhousie/gh-pages/lessons/90-reproducible.zip "Dalhousie example of original Rmd file used to generate knitr reports"
