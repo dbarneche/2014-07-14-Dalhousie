@@ -183,7 +183,7 @@ plot(lifeExp ~ gdpPercap, data.1982, log="x", cex=cex)
 ![plot of chunk scaled_manually_sqrt](figure/scaled_manually_sqrt.png)
 
 
-By this point, it's probably apparent that if we have lots of things like that flopping around in our code, things are going to messy and hard to read quickly.  Some way of taking a vector of numbers and *rescaling* them to lie within some new range is called for.
+By this point, it's probably apparent that if we have lots of things like that flopping around in our code, things are going to get messy and hard to read quickly. Some way of taking a vector of numbers and *rescaling* them to lie within some new range is called for.
 
 
 ```r
@@ -244,7 +244,7 @@ captures intent better.
 ```r
 col <- colour.by.category(data.1982$continent, col.table)
 cex <- rescale(sqrt(data.1982$pop), c(0.2, 10))
-plot(lifeExp ~ gdpPercap, data.1982, log="x", cex=cex, col=col, pch=21, lwd=2.5)
+plot(lifeExp ~ gdpPercap, data.1982, log="x", cex=cex, col='black', bg=col, pch=21, lwd=0.5, las=1)
 ```
 
 ![plot of chunk scaled_coloured](figure/scaled_coloured.png)
@@ -262,7 +262,7 @@ add.trend.line <- function(x, y, d, ...) {
 ```
 
 ```r
-plot(lifeExp ~ gdpPercap, data.1982, log="x", cex=cex, col=col, pch=21, lwd=2.5)
+plot(lifeExp ~ gdpPercap, data.1982, log="x", cex=cex, col='black', bg=col, pch=21, lwd=0.5, las=1)
 add.trend.line("gdpPercap", "lifeExp", data.1982)
 add.trend.line("gdpPercap", "lifeExp", data.1982, lwd=2)
 add.trend.line("gdpPercap", "lifeExp", data.1982, lwd=2, lty=2, col="blue")
@@ -275,7 +275,7 @@ Now that we have this function, we can do all sorts of fun things with it:
 
 
 ```r
-plot(lifeExp ~ gdpPercap, data.1982, log="x", cex=cex, col=col, pch=21)
+plot(lifeExp ~ gdpPercap, data.1982, log="x", cex=cex, col='black', bg=col, pch=21, lwd=0.5, las=1)
 add.trend.line("gdpPercap", "lifeExp", data.1982[data.1982$continent == "Asia",], col=col.table["Asia"])
 add.trend.line("gdpPercap", "lifeExp", data.1982[data.1982$continent == "Africa",], col=col.table["Africa"])
 add.trend.line("gdpPercap", "lifeExp", data.1982[data.1982$continent == "Europe",], col=col.table["Europe"])
@@ -290,14 +290,15 @@ Which still looks a bit ugly.  Could be nicer with another function:
 
 
 ```r
-add.continent.trend.line <- function(x, y, d, continent, col.table, ...)
+add.continent.trend.line <- function(x, y, d, continent, col.table, ...) {
   add.trend.line(x, y, d[d$continent == continent,], col=col.table[continent], ...)
+}
 ```
 
 
 
 ```r
-plot(lifeExp ~ gdpPercap, data.1982, log="x", cex=cex, col=col, pch=21)
+plot(lifeExp ~ gdpPercap, data.1982, log="x", cex=cex, col='black', bg=col, pch=21, lwd=0.5, las=1)
 add.continent.trend.line("gdpPercap", "lifeExp", data.1982, "Asia", col.table)
 add.continent.trend.line("gdpPercap", "lifeExp", data.1982, "Africa", col.table)
 add.continent.trend.line("gdpPercap", "lifeExp", data.1982, "Europe", col.table)
@@ -312,9 +313,10 @@ For throwaways like this we might use *global variables* but beware here.  This 
 
 
 ```r
-f <- function(continent)
+f <- function(continent) {
   add.continent.trend.line("gdpPercap", "lifeExp", data.1982, continent, col.table)
-plot(lifeExp ~ gdpPercap, data.1982, log="x", cex=cex, col=col, pch=21)
+}
+plot(lifeExp ~ gdpPercap, data.1982, log="x", cex=cex, col='black', bg=col, pch=21, lwd=0.5, las=1)
 f("Africa")
 f("Asia")
 f("Europe")
@@ -341,10 +343,10 @@ add.trend.line <- function(x, y, d, ...) {
 When we rerun this, we now get nicely clipped lines; but we didn't change anything else!  This is one of the big benefits of working with some level of abstraction.
 
 ```r
-f <- function(continent)
+f <- function(continent) {
   add.continent.trend.line("gdpPercap", "lifeExp", data.1982, continent, col.table)
-plot(lifeExp ~ gdpPercap, data.1982, log="x", cex=cex, col=col, pch=21)
-f("Africa")
+}
+plot(lifeExp ~ gdpPercap, data.1982, log="x", cex=cex, col='black', bg=col, pch=21, lwd=0.5, las=1)f("Africa")
 f("Asia")
 f("Europe")
 f("Americas")
