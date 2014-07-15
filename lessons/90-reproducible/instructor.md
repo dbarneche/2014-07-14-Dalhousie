@@ -17,16 +17,17 @@ Open Rstudio project 90-reproducible
 
 ```r
 # Saving tables to file
-dir.create("output")
-write.csv(model.data, file="output/table1.csv")
+dir.create("output/data")
+write.csv(model.data, file="output/data/table1.csv")
 
-write.csv(format(model.data, digits=2, trim=TRUE), file="output/table1.csv", row.names=FALSE, quote=FALSE)
+write.csv(format(model.data, digits=2, trim=TRUE), file="output/data/table1.csv", row.names=FALSE, quote=FALSE)
 ```
 
 
 #One way of saving a plot to file
 
 ```r
+dir.create("output/figures")
 pdf("output/my-plot.pdf", width=6, height=4)
 myplot(data.1982,"gdpPercap","lifeExp", main =1982)
 dev.off()
@@ -35,11 +36,11 @@ dev.off()
 # a better way of saving to pdf
 
 ```r
-to.pdf(myplot(data.1982,"gdpPercap","lifeExp", main=1982), "output/1982.pdf", width=6, height=4)
+to.pdf(myplot(data.1982,"gdpPercap","lifeExp", main=1982), "output/figures/1982.pdf", width=6, height=4)
 ```
 
 # similar approach to save png
 
 ```r
-to.dev(myplot(data.1982, "gdpPercap","lifeExp", main=1982), png, "output/1982.png", width=600, height=400)
+to.dev(myplot(data.1982, "gdpPercap","lifeExp", main=1982), png, "output/figures/1982.png", width=600, height=400)
 ```
