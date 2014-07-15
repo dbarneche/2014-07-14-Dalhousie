@@ -48,9 +48,10 @@ The default is `vi`.  If anyone ends up with a screen does not seem to respond t
 
 
 Other options:
-* "gedit -w -s" 
-* "kate"
-* "subl -n -w' for Sublime Text 2.
+
+ * `"gedit -w -s"` 
+ * `"kate"`
+ * `"subl -n -w"` for Sublime Text 2.
 
 ###  Other editors 
 
