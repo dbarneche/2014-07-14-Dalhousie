@@ -111,10 +111,50 @@ Note that this does not produce output!  It will only produce output if the test
 
 That is the idea.  There are some issues around where to store the tests, but that's not hard to sort out.
 
+### Exercise
+
+Recall the `skewness()` function you wrote yesterday:
+
+```r
+variance <- function(x) {
+  n <- length(x)  # number of observations
+  xbar <- mean(x) # mean of x
+  sum((x - xbar)^2) / (n-1) # var(x)
+}
+
+skewness <- function(x) {
+  n <- length(x)
+  xbar <- mean(x)
+  skew <- sum((x - xbar)^3) / (n-2)
+  skew <- skew / var(x)^(3/2)
+  skew
+}
+```
+
+What things could you do to test that `skewness()` returns correct 
+values or behaves appropriately?
+
+We could check that for data with know sign of skewness the function works:
+
+```r
+set.seed(42)
+x <- rlnorm(100)
+hist(x)
+expect_more_than(skewness(x), 0) ## ok
+expect_less_than(skewness(x), 0) ## throws error
+```
+
 ### Expectations
 
 
 * **`equals()` Equality with a numerical tolerence**
+* Don't use `==` for comparisons involving floating point operations!
+
+    ```r
+    sqrt(2)^2 == 2
+    ```
+* In base R use `all.equal(sqrt(2)^2, 2)`
+* In **testthat** use `expect_that(foo, equals(bar))` or `expect_equal(foo, bar)`
 
 ````
 expect_that(10, equals(10)) # passes
@@ -124,6 +164,8 @@ expect_that(10, equals(10 + 1e-7)) # passes
 expect_that(10, equals(10 + 1e-6)) # fails
 
 expect_that(10, equals(11)) # fails
+
+expect_equal(variance(1:10), var(1:10)) # passes
 ```
 
 * **`is_identical_to`:  Exact quality with identical** (this can be surprising with decimal numbers)
