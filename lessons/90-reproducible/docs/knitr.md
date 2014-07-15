@@ -1,11 +1,10 @@
 
 
-
-# Examples from lesson number 1 - Intro to R - presented by Rich FitzJohn  
+# Examples from lesson #1 - Intro to R - presented by Diego Barneche  
 
 ## Vector types
 
-Diego just told us that in R we have 5 different types of vector.  
+There are 5 different types of vector in R.  
 
 ```r
 x <- TRUE       # x becomes TRUE
@@ -27,7 +26,6 @@ x
 ## [1] "1"    "TRUE" "1"
 ```
 
-
 ## Lists  
 If you want to store the different modes of elements in one single object, you use lists.  
 
@@ -46,7 +44,6 @@ x
 ## [[3]]
 ## [1] "1"
 ```
-
 
 ## Querrying  
 You can ask yourself about the nature of an unknown vector - suppose you did not know what x is:  
@@ -75,8 +72,7 @@ class(x)
 ## [1] "list"
 ```
 
-
-# Examples from lesson number 2 - Writing functions - presented by Diego  
+# Examples from lesson #2 - Writing functions - presented by Diego Barneche  
 
 ## Playing with the basics  
 When you write your function, you define it based on *arguments*  
@@ -91,7 +87,6 @@ f(100)
 ```
 ## [1] 100
 ```
-
 The function `f()` is what we call the identity function, i.e., the function returns the exact input. In this particular case, the argument `something` took the value 100. You could instead define an object before, and then calling the function on that object, which should do exactly the same thing.  
 
 ```r
@@ -102,14 +97,13 @@ f(x)
 ```
 ## [1] 100
 ```
-
 It returned exactly the same thing. In this case, `something` took the value of x, which was 100.  
 
 ## Downloading the gapminder data
 We have to download a .csv file that we will use for the rest of our course. Right-click this [link][id] and save it to some new directory. Let's play with it now. 
 
 ```r
-data  <-  read.csv('/Users/barneche/gapminder/data/gapminder-FiveYearData.csv', header=TRUE, stringsAsFactors=FALSE)
+data  <-  read.csv('../data/gapminder-FiveYearData.csv', header=TRUE, stringsAsFactors=FALSE)
 head(data) #try the function tail() instead, what happened?
 ```
 
@@ -124,7 +118,6 @@ head(data) #try the function tail() instead, what happened?
 ```
 
 ```r
-
 #subset the data for year 1982 only
 data.1982  <-  data[data$year == 1982, ]
 
@@ -148,11 +141,45 @@ sum(data.1982$gdpPercap) / length(data.1982$gdpPercap)
 ```
 ## [1] 7519
 ```
-
 Notice that repeating things may be problematic; first because it increases your chances of typos; second, if for some reason you change the name of your columns in `dat`, you will have to manually change all these names, which will be quite annoying.  
 
-## Making a plot  
+# Examples from lesson #5 - Testing functions - presented by Gavin Simpson  
+We have seen how important it is to test your functions in R. We have used a very user-friendly packages called `testthat`, where most tests are expectations of a certain result/output:  
 
+## Example of test  
+
+```r
+#using function rescale as an example
+rescale <- function(x, r.out) {
+  if (length(r.out) != 2)
+    stop("Expected r.out to be length 2")
+  xr <- range(x, na.rm=TRUE)
+  p <- (x - min(xr)) / (max(xr) - min(xr))
+  r.out[[1]] + p * (r.out[[2]] - r.out[[1]])
+}
+
+#some of the possible tests for it
+library(testthat)
+test_that("Rescale gives expected range", {
+  x <- rnorm(20)
+  x[4] <- NA
+  r.out <- sort(runif(2))
+  ## Range is expected:
+  expect_that(range(rescale(x, r.out), na.rm=TRUE), equals(r.out))
+  ## Rescaling onto same range does not change the data:
+  expect_that(rescale(x, range(x, na.rm=TRUE)), equals(x))
+  
+  ## Rescaling onto a reversed range works
+  expect_that(range(rescale(x, rev(r.out)), na.rm=TRUE), equals(r.out))
+  ## And the output is what was expected:
+  expect_that(rescale(x, rev(r.out)),
+              equals(sum(r.out) - rescale(x, r.out)))
+})
+```
+
+# Examples from lessons #2 and #4 - Writing plot functions and looping - presented by Diego Barneche and Gavin Simpson  
+
+## Making a plot  
 
 
 ```r
@@ -166,7 +193,6 @@ for (year in unique(data$year))
     my.plot(year, data, col.table)
 ```
 
-![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-91.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-92.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-93.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-94.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-95.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-96.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-97.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-98.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-99.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-910.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-911.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-912.png) 
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-101.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-102.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-103.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-104.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-105.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-106.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-107.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-108.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-109.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-1010.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-1011.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-1012.png) 
 
-
-[id]: https://raw.githubusercontent.com/dbarneche/2014-07-14-Dalhousie/gh-pages/data/lessons/10-functions/gapminder-FiveYearData.csv
+[id]: https://raw.github.com/dbarneche/2014-07-14-Dalhousie/gh-pages/data/lessons/10-functions/gapminder-FiveYearData.csv

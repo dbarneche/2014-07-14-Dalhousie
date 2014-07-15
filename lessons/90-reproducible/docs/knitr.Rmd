@@ -1,12 +1,16 @@
-```{r,echo=FALSE}
+```{r,echo=FALSE,results="hide"}
 opts_chunk$set(tidy=FALSE)
+library(testthat)
+source('../R/functions-analyses.R')
+test_dir('../tests')
+rm(list=ls())
 ```
 
-# Examples from lesson number 1 - Intro to R - presented by Rich FitzJohn  
+# Examples from lesson #1 - Intro to R - presented by Diego Barneche  
 
 ## Vector types
 
-Diego just told us that in R we have 5 different types of vector.  
+There are 5 different types of vector in R.  
 ```{r}
 x <- TRUE       # x becomes TRUE
 x <- 1          # x now has a value of 1 (overwritten the line above)
@@ -31,7 +35,7 @@ typeof(x)
 class(x)
 ```
 
-# Examples from lesson number 2 - Writing functions - presented by Diego  
+# Examples from lesson #2 - Writing functions - presented by Diego Barneche  
 
 ## Playing with the basics  
 When you write your function, you define it based on *arguments*  
@@ -51,7 +55,7 @@ It returned exactly the same thing. In this case, `something` took the value of 
 ## Downloading the gapminder data
 We have to download a .csv file that we will use for the rest of our course. Right-click this [link][id] and save it to some new directory. Let's play with it now. 
 ```{r}
-data  <-  read.csv('gapminder-FiveYearData.csv', header=TRUE, stringsAsFactors=FALSE)
+data  <-  read.csv('../data/gapminder-FiveYearData.csv', header=TRUE, stringsAsFactors=FALSE)
 head(data) #try the function tail() instead, what happened?
 
 #subset the data for year 1982 only
@@ -68,6 +72,41 @@ sum(data.1982$gdpPercap) / length(data.1982$gdpPercap)
 ```
 Notice that repeating things may be problematic; first because it increases your chances of typos; second, if for some reason you change the name of your columns in `dat`, you will have to manually change all these names, which will be quite annoying.  
 
+# Examples from lesson #5 - Testing functions - presented by Gavin Simpson  
+We have seen how important it is to test your functions in R. We have used a very user-friendly packages called `testthat`, where most tests are expectations of a certain result/output:  
+
+## Example of test  
+```{r}
+#using function rescale as an example
+rescale <- function(x, r.out) {
+  if (length(r.out) != 2)
+    stop("Expected r.out to be length 2")
+  xr <- range(x, na.rm=TRUE)
+  p <- (x - min(xr)) / (max(xr) - min(xr))
+  r.out[[1]] + p * (r.out[[2]] - r.out[[1]])
+}
+
+#some of the possible tests for it
+library(testthat)
+test_that("Rescale gives expected range", {
+  x <- rnorm(20)
+  x[4] <- NA
+  r.out <- sort(runif(2))
+  ## Range is expected:
+  expect_that(range(rescale(x, r.out), na.rm=TRUE), equals(r.out))
+  ## Rescaling onto same range does not change the data:
+  expect_that(rescale(x, range(x, na.rm=TRUE)), equals(x))
+  
+  ## Rescaling onto a reversed range works
+  expect_that(range(rescale(x, rev(r.out)), na.rm=TRUE), equals(r.out))
+  ## And the output is what was expected:
+  expect_that(rescale(x, rev(r.out)),
+              equals(sum(r.out) - rescale(x, r.out)))
+})
+```
+
+# Examples from lessons #2 and #4 - Writing plot functions and looping - presented by Diego Barneche and Gavin Simpson  
+
 ## Making a plot  
 ```{r, echo=FALSE}
 linear.rescale  <-  function(x, range) {
@@ -79,9 +118,11 @@ colour.by.category <- function(things, table) {
     unname(table[things])
 }
 
-add.trend.line  <-  function(x, y, d, col) {
-    fit  <-  lm(d[[y]]~log10(d[[x]]))
-    abline(fit, col=col, lwd=1.5, lty=2)
+add.trend.line <- function(x, y, d, ...) {
+  lx  <-  log10(d[[x]])
+  fit <-  lm(d[[y]] ~ lx)
+  xr  <-  range(lx)
+  lines(10^xr, predict(fit, list(lx=xr)), ...)
 }
 
 my.plot  <-  function(year, data, cols) {
@@ -108,4 +149,4 @@ for (year in unique(data$year))
 
 ```
 
-[id]: https://raw.github.com/nicercode/gapminder/master/gapminder-FiveYearData.csv
+[id]: https://raw.github.com/dbarneche/2014-07-14-Dalhousie/gh-pages/data/lessons/10-functions/gapminder-FiveYearData.csv
