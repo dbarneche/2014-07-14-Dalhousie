@@ -237,7 +237,7 @@ expect_that(x, is_true())
 
 * Functions go in a script file that can be sourced (say `functions.R`).
 * Tests go in a file begining with `test-` (e.g., `test-rescale.R`).
-* At the top of the testing file, source your functions file ane load `testthat`
+* At the top of the testing file, source your functions file and load `testthat`
 * From within R, you can now do
 
 ```
