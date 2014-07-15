@@ -102,8 +102,8 @@ model.data <- ddply(data, .(continent,year), fit.model, x="lifeExp", y="gdpPerca
 Now we just want to write this table to file:
 
 ```r
-dir.create("output")
-write.csv(model.data, file="output/table1.csv")
+dir.create("output/data")
+write.csv(model.data, file="output/data/table1.csv")
 ```
 
 This is good, but there's a couple of problems:
@@ -115,7 +115,7 @@ This is good, but there's a couple of problems:
 So here's a better version:
 
 ```r
-write.csv(format(model.data, digits=2, trim=TRUE), file="output/table1.csv", row.names=FALSE, quote=FALSE)
+write.csv(format(model.data, digits=2, trim=TRUE), file="output/data/table1.csv", row.names=FALSE, quote=FALSE)
 ```
 
 ### Plots
@@ -144,7 +144,8 @@ myplot(data.1982,"gdpPercap","lifeExp", main =1982)
 to make your figure.  Now you can type
 
 ```
-pdf("output/my-plot.pdf", width=6, height=4)
+dir.create("output/figures")
+pdf("output/figures/my-plot.pdf", width=6, height=4)
 myplot(data.1982,"gdpPercap","lifeExp", main =1982)
 dev.off()
 ```
@@ -169,7 +170,7 @@ Which can be used like so:
 
 
 ```r
-to.pdf(myplot(data.1982,"gdpPercap","lifeExp", main=1982), "output/1982.pdf", width=6, height=4)
+to.pdf(myplot(data.1982,"gdpPercap","lifeExp", main=1982), "output/figures/1982.pdf", width=6, height=4)
 ```
 
 A couple of nice things about this approach:
@@ -224,8 +225,8 @@ function, we can do:
 
 
 ```r
-to.pdf(fig.progressive(TRUE),  "output/progressive-1.pdf", width=6, height=4)
-to.pdf(fig.progressive(FALSE), "output/progressive-2.pdf", width=6, height=4)
+to.pdf(fig.progressive(TRUE),  "output/figures/progressive-1.pdf", width=6, height=4)
+to.pdf(fig.progressive(FALSE), "output/figures/progressive-2.pdf", width=6, height=4)
 ```
 
 which will generate the two figures. The general idea can be expanded to more devices, such as png (see this [blog post](http://nicercode.github.io/blog/2013-07-09-figure-functions/) for details).
@@ -242,7 +243,7 @@ to.dev <- function(expr, dev, filename, ..., verbose=TRUE) {
   eval.parent(substitute(expr))
 }
 
-to.dev(myplot(data.1982, "gdpPercap","lifeExp", main=1982), png, "output/1982.png", width=600, height=400)
+to.dev(myplot(data.1982, "gdpPercap","lifeExp", main=1982), png, "output/figures/1982.png", width=600, height=400)
 
 ```
 
