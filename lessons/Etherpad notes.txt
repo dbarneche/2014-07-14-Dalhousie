@@ -1,0 +1,271 @@
+Welcome to the Software Carpentry Bootcamp at Dalhousie University!
+
+Please make sure that you write down your name in the blank space on the upper right corner - this will help is identify the different people. 
+
+Here we will:
+1. Communicate among ourselves using the chat area (lower right corner);
+2. Instructors will paste the code they are typing on the screen;
+3. Share useful links;
+
+This space is for everybody to use, feel free to add related content, fix typos and so forth. We recommend you to save a personal copy of the entire session as a text file for your reference at the end of each day.
+
+You can add text over here...
+
+
+https://github.com/dbarneche/2014-07-14-/raw/gh-pages/data/lessons.zip
+
+Phys.ocean users: anchor:/var/tmp/lessons.zip
+
+Dalhousie
+* If there's an operation that's going to happen repeatedly, consider making it into a function.
+* Give functions meaningful names.  Give EVERYTHING meaningful names.
+* Indentation is important for the human reader.  (And a few languages, like Python.)
+* A function should do one small, simple task.
+* Compose functions from simpler functions.
+
+EXERCISE:  Write a function called 'variance'; see formula on whiteboard. When done, compare your function's output with the builtin function 'var':
+   var(x) == variance(x)
+
+* "Premature optimization is the root of all evil" (http://c2.com/cgi/wiki?PrematureOptimization)
+
+
+
+add.trend.line  <-  function(data, response, predictor, ...) {
+  fit  <-  lm(data[[response]] ~ log10(data[[predictor]]))
+  abline(fit, ...)
+}
+
+plot(lifeExp ~ gdpPercap, 
+     data=data.1982, 
+     log="x", cex=cex, las=1, 
+     pch=21, col='black', 
+     bg=continent.colour)
+
+add.trend.line(data.1982, 
+               "lifeExp", 
+               "gdpPercap", 
+               lty="dashed",
+               col='dodgerblue2',
+               lwd=2)
+               
+               
+add.continent.trend.line  <-  function(data, continent) {
+  add.trend.line(data[data$continent==continent,], 
+                 "lifeExp", 
+                 "gdpPercap", 
+                 lty="dashed",
+                 col=coloured[continent],
+                 lwd=2)  
+}
+
+
+#new implementation of add.trend.line
+add.trend.line  <-  function(data, response, predictor, ...) {
+  lx   <-  log10(data[[predictor]])
+  fit  <-  lm(data[[response]] ~ lx)
+  xr   <-  range(lx)
+  lines(10^xr, predict(fit, list(lx=xr)), ...)
+}
+
+get.n.countries <- function(x) {
+  n <- unique(x$country)
+  length(n)
+}
+get.n.countries(data)
+
+data.new <- data[data$continent == "Asia", ]
+get.n.countries(data.new)
+data.new <- data[data$continent == "Africa", ]
+get.n.countries(data.new)
+
+daply(data, .(continent), get.n.countries)
+daply(data, .(continent),
+      function(x) length(unique(x$country)))
+
+get.total.pop <- function(x) {
+  
+}
+
+add.trend.line <- function(x, y, d, ...) {
+  fit <- lm(d[[y]] ~ log10(d[[x]]))
+  abline(fit, ...)
+}
+
+colour.by.category <- function(x, table) {
+  unname(table[x])
+}
+
+rescale <- function(x, r.out) {
+  p <- (x - min(x)) / (max(x) - min(x))
+  r.out[1] + p * (r.out[2] - r.out[1])
+}
+data.1982 <- data[data$year == 1982,]
+col.table <- c(Asia="tomato", Europe="chocolate4", Africa="dodgerblue2", Americas="darkgoldenrod1", Oceania="green4")
+
+col <- colour.by.category(data.1982$continent,
+                          col.table)
+cex <- rescale(sqrt(data.1982$pop), c(0.2, 10))
+
+plot(lifeExp ~ gdpPercap, data = data.1982,
+     log="x", cex = cex, col = col, pch = 21)
+d_ply(data.1982, .(continent),
+      function(x) {
+         add.trend.line("gdpPercap", 
+                        "lifeExp",
+                        x,
+                        col = col.table[x$continent])
+         })
+
+Day 2
+
+Testing:
+
+variance <- function(x) {
+  n <- length(x)  # number of observations
+  xbar <- mean(x) # mean of x
+  sum((x - xbar)^2) / (n-1) # var(x)
+}
+
+skewness <- function(x) {
+  n <- length(x)
+  xbar <- mean(x)
+  skew <- sum((x - xbar)^3) / (n-2)
+  skew <- skew / var(x)^(3/2)
+  skew
+}
+
+# Proposed tests:
+# 1. Skewness of a really big rnorm should be close to zero
+# 2. Random log-normal values should have positive skewness
+
+EXERCISE:  With the 'rescale' function,
+1) write a unit test that checks that it gives the right range
+2) does it handle a bad range input?
+
+More motivation to test.  Carefully.
+http://boscoh.com/protein/a-sign-a-flipped-structure-and-a-scientific-flameout-of-epic-proportions.html
+
+Some links for more on testthat:
+
+Hadley Wickham wrote an intro paper for the R Journal on testthat, which goes through the basics: http://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf [pdf]
+Hadley has also been writing a book, Advanced R, that is available as a website and which has a section on Testing using testthat: http://adv-r.had.co.nz/Testing.html  The book should be published in hardcopy form by CRC Press later in the year: http://www.crcpress.com/product/isbn/9781466586963
+
+SHELL
+
+cd   --- change directory
+cd ..    ---- go to parent directory
+pwd   --- print working directory
+ls   --- list contents of directory
+ls -l   --- "long" list, show details
+ls --help
+
+Exercise:
+List all files/folders with the digit '3' in their name
+
+Windows users, please run:
+
+echo "export TERM=msys" >> ~/.bashrc
+
+
+
+#VERY IMPORTANT
+Hi everyone, whenever you can, can I please get you to re-download the material from the link indicated at the top of this page?
+13:06Diego Barneche: I have updated the content for the reproducibility session, it would be great if you could have that running.
+13:06Diego Barneche: Just make sure not to overwrite the work you've done so far. You only need to overwrite the folder 90-reproducibility
+
+https://github.com/dbarneche/2014-07-14-Dalhousie/raw/gh-pages/data/lessons.zip
+
+
+
+Additional readings on R material:
+http://cran.r-project.org/doc/manuals/R-intro.html#Writing-your-own-R-intro.html#Writing-your-own-functions
+http://nicercode.github.io/intro/writing-functions.html
+http://adv-r.had.co.nz/
+
+Shameless plug: Remi wrote an R tutorial for ocean science, it has some things you may find useful (like mapping):
+https://github.com/remi-daigle/R_tutorial_ocean
+
+
+VERSION CONTROL
+
+echo "export TERM=msys" >> ~/.bashrc
+
+Motivation, and chuckles:  http://www.phdcomics.com/comics/archive.php?comicid=1531
+
+git package for MacOS Snow Leopard 10.6.8:
+https://code.google.com/p/git-osx-installer/downloads/detail?name=git-1.8.4.2-intel-universal-snow-leopard.dmg
+
+git config --global user.name "User Name"
+git config --global user.email "user@foobar.com"
+
+Windows only:
+git config --global core.autocrlf "true"
+
+Mac OS X / Linux
+git config --global core.autocrlf "input"
+
+If you have Nano:
+git config --global core.editor "nano --tempfile"
+If 'notepad' is the editor that works for you (Windows), try:
+   git config --global core.editor "notepad"
+
+git config --global color.ui "auto"
+
+git init
+git add file
+git commit -m "message"
+git status
+git log
+
+git branch
+git branch new_branch
+git checkout another_branch
+git branch -d branch_to_be_deleted
+
+To revert to a previous git commit id
+
+git reset --hard commit-hash for example:
+
+git checkout -b master
+git reset --hard bc56e0e
+
+will reset the master branch to the state as of the commit bc56e0e
+
+REPRODUCIBLE RESEARCH
+
+Goals of reproducible research
+
+to.pdf <- function(expr, filename, ..., verbose = TRUE) {
+    if (verbose)
+        cat(sprintf("Creating %s\n", filename))
+    pdf(filename, ...)
+    on.exit(dev.off())
+    eval.parent(substitute(expr))
+}
+
+dir.create("output/figures")
+
+to.pdf(myplot(data.1982, "gdpPercap", "lifeExp", main = "1982", lty = 2),
+           "output/figures/figure1.pdf", height = 7, width = 7)
+
+for (i in unique(data$year)) {
+    subdata <- data[data$year == i,  ]
+    to.pdf(myplot(subdata, "gdpPercap", "lifeExp", main = "1982", lty = 2),
+               paste0("output/figures/figure1_", i, ".pdf", height = 7, width = 7)
+}
+
+R packages used:
+
+knitr: the knitr website http://yihui.name/knitr/
+
+Stackoverflow is a great source of help for all kinds of coding issues:
+
+stackoverflow.com
+
+
+SUM-UP
+
+http://dbarneche.github.io/2014-07-14-Dalhousie
+
+What we're aiming at: "Best Practices For Scientific Computing" http://www.plosbiology.org/article/info%3Adoi%2F10.1371%2Fjournal.pbio.1001745
+
